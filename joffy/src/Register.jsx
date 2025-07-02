@@ -1,17 +1,9 @@
-
+import {Link} from 'react-router-dom';
 import './App.css'
 
 function Register() {
     return (
       <>
-        {/*
-          This example requires updating your template:
-  
-          ```
-          <html class="h-full bg-white">
-          <body class="h-full">
-          ```
-        */}
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
@@ -91,12 +83,13 @@ function Register() {
               </div>
             </form>
   
-            <p className="mt-10 text-center text-sm/6 text-gray-500">
+            <p className="mt-10 text-center text-sm/6 text-gray-500">            </p>  
+            <p className="font-semibold text-indigo-600 hover:text-indigo-500">
               Not a member?{' '}
-              <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+              </p>
+              <a href="#">
                 Start a 14 day free trial
-              </a>
-            </p>
+                </a>
           </div>
         </div>
       </>
