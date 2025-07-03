@@ -1,2 +1,2 @@
 # Messaging App.
-Front-End 
+Front-End for the App using Tailwind, React.
