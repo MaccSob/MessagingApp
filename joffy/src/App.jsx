@@ -1,15 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+import {Router, Routes, Route} from 'react-router';
 import './App.css'
+import Login from './Login';
 
 function App() {
     return (
       <>
-      <div className="navbar bg-base-100 shadow-sm">
-  <a className="btn btn-ghost text-xl">daisyUI</a>
-  
-</div>
+<Router>
+<Routes>
+
+<Route path="/login" element={Login}></Route>
+
+</Routes>
+
+</Router>
       </>
         )
       }

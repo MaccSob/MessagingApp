@@ -1,13 +1,9 @@
-import {Navigate} from 'react-router-dom';
+
 import React from 'react';
 import './App.css'
-
 function Register() {
-  const [GoToDash, setGoToDash] = React.useState(false);
-
-  if (GoToDash) {
-    return <Navigate to="/dashboard"/>;
-  }
+  
+  
     return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -22,7 +18,7 @@ function Register() {
             </h2>
           </div>
           <div>
-                <label htmlFor="nick" className="block text-sm/6 font-medium text-gray-900">
+                <label htmlFor="niconclick redirec to component6 font-medium text-gray-900">
                 Nickname:
                 </label>
                 <div className="mt-2">
