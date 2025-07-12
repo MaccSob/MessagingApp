@@ -1,8 +1,14 @@
-
+import { useNavigate } from "react-router-dom";
 import React from 'react';
 import './App.css'
+
 function Register() {
   
+  const navigate = useNavigate()
+
+  if(true){
+  navigate('/login');
+}
   
     return (
       <>
