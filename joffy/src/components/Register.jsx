@@ -1,14 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react';
-import './App.css'
+import '../App.css'
 
 function Register() {
   
-  const navigate = useNavigate()
-
-  if(true){
-  navigate('/login');
-}
   
     return (
       <>
@@ -84,6 +79,7 @@ function Register() {
               <div>
                 <button
                   type="submit"
+                  onclick=""
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Create account
