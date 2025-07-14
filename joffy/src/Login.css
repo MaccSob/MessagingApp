@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2.5em;
+  line-height: 1.1;
+      margin: 50px;
+      text-align: center;
+      padding-left: 25px;
+
+}
+.logo {
+    padding-left: 100px;
+}
