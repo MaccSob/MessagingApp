@@ -21,21 +21,58 @@ function Register() {
             </h2>
           </div>
           <div>
+
+            <div className="labeln">
+                <label htmlFor="niconclick redirec to component6 font-medium text-gray-900">
+                First name:
+                </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    id="fname"
+                    name="fname"
+                    type="fname"
+                    required
+                    autoComplete="First name"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
+                </div>
+              </div>
+
+                   <div className="labeln">
+                <label htmlFor="niconclick redirec to component6 font-medium text-gray-900">
+                Last name:
+                </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    id="lname"
+                    name="lname"
+                    type="lname"
+                    required
+                    autoComplete="Last name"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
+                </div>
+  
+
+            <div className="labeln">
                 <label htmlFor="niconclick redirec to component6 font-medium text-gray-900">
                 Nickname:
                 </label>
+                </div>
                 <div className="mt-2">
                   <input
                     id="nick"
                     name="nick"
                     type="nick"
                     required
-                    autoComplete="nick"
+                    autoComplete="Nickname"
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   />
                 </div>
               </div>
-  
+               <div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form action="#" method="POST" className="space-y-6">
@@ -49,7 +86,7 @@ function Register() {
                     name="email"
                     type="email"
                     required
-                    autoComplete="email"
+                    autoComplete="Email"
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   />
                 </div>
@@ -60,11 +97,6 @@ function Register() {
                   <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                     Password
                   </label>
-                  <div className="text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                      Forgot password?
-                    </a>
-                  </div>
                 </div>
                 <div className="mt-2">
                   <input
