@@ -1,3 +1,8 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+
 body {
   margin: 0;
   display: flex;
@@ -6,14 +11,10 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 2.5em;
-  line-height: 1.1;
-      margin: 50px;
-      text-align: center;
-      padding-left: 25px;
-
-}
 .logo {
     padding-left: 100px;
+     margin: 35px;
+}
+button {
+    margin: 15px;
 }

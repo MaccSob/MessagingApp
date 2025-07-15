@@ -17,7 +17,7 @@ function Register() {
               className="logo"
             />
             <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-              Create your account!
+              Join our community!
             </h2>
           </div>
           <div>
@@ -116,7 +116,7 @@ function Register() {
                   onclick=""
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Create account
+                  Join
                 </button>
               </div>
             </form>

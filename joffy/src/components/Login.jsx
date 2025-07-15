@@ -12,9 +12,6 @@ function Login() {
               src='/src/assets/logo.png'
               className="logo"
             />
-            <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-           Login page
-            </h1>
           </div>
         
 <div className="logincontainer">
@@ -64,9 +61,8 @@ function Login() {
     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  />
 </label>        
 </div>
-        <button className="login">Login</button>
-
-        </>
+<button class="btn btn-primary">Login</button>       
+ </>
     )
 }
 
