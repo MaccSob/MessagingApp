@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #FF0000;
+  font-size: 18px;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+.logo {
+  height: 12em;
+  padding: 1.225em;
+  will-change: filter;
+  transition: filter 300ms;
+    margin-right: 13em;
+            transform: translate(-15%);
+}
+h2 {
+  color: #FF0000;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 55px;
+}

@@ -15,17 +15,11 @@
   padding: 2rem;
   text-align: center;
 }
-
-.logo {
-  height: 12em;
-  padding: 1.225em;
-  will-change: filter;
-  transition: filter 300ms;
-}
 h2 {
-  color: #FF0000;
-  font-size: 22px;
+  transform: rotate(6deg);
+  margin: -55px;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }

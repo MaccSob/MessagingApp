@@ -2,17 +2,22 @@
 @plugin "daisyui";
 
 
-
-body {
+* {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+  color: #FF0000;
+  font-size: 18px;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 .logo {
-    padding-left: 100px;
      margin: 35px;
 }
 button {
