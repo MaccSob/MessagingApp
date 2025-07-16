@@ -12,6 +12,9 @@ function Login() {
               src='/src/assets/logo.png'
               className="logo"
             />
+               <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+              Here to talk!  
+            </h2>
           </div>
         
 <div className="logincontainer">

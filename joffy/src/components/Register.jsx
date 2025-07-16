@@ -17,8 +17,9 @@ function Register() {
               className="logo"
             />
             <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-              Join our community!
+              Here to talk!
             </h2>
+            <h3>Join our community!</h3>
           </div>
           <div>
 
