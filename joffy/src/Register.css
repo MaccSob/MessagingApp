@@ -26,3 +26,11 @@ h2 {
   font-weight: 800;
   margin-bottom: 55px;
 }
+.registerwrapper {
+    max-width: 350px;
+    margin: 0 auto;
+}
+.registerwrapper img {
+     width: 100%;
+    height: auto;
+}

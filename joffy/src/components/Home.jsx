@@ -8,7 +8,7 @@ function Home() {
   const navigate = useNavigate();
  return (
    <>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="homewrapper">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               alt="Joffy"
@@ -21,9 +21,10 @@ function Home() {
             <h3></h3>
            
           </div>
+          <button class="btn btn-primary" onClick={() => navigate('/register')}>Click me!</button>       
+
 </div>
 
-<button class="btn btn-primary" onClick={() => navigate('/register')}>Click me!</button>       
 
 
 

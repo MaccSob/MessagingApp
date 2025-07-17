@@ -6,7 +6,7 @@ function Login() {
 
     return (
         <>
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <div className="loginwrapper">
             <img
               alt="Joffy"
               src='/src/assets/logo.png'

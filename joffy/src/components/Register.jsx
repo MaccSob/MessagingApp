@@ -9,7 +9,7 @@ function Register() {
   
     return (
       <>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="registerwrapper">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               alt="Joffy"
@@ -79,7 +79,7 @@ function Register() {
             <form action="#" method="POST" className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                  Email address
+                  E-mail address:
                 </label>
                 <div className="mt-2">
                   <input
@@ -96,7 +96,7 @@ function Register() {
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                    Password
+                    Password:
                   </label>
                 </div>
                 <div className="mt-2">

@@ -19,6 +19,14 @@ h2 {
   transform: rotate(6deg);
   margin: -55px;
 }
+.homewrapper {
+ max-width: 350px;
+    margin: 0 auto;}
+
+    .homewrapper img {
+    height: auto;
+}
+    
 h3 {
   font-size: 24px;
   font-weight: 800;

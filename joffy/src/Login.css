@@ -23,3 +23,11 @@
 button {
     margin: 15px;
 }
+.loginwrapper {
+      max-width: 350px;
+    margin: 0 auto;
+}
+.loginwrapper img {
+     width: 100%;
+    height: auto;
+}
