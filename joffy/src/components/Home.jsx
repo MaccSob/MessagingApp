@@ -1,10 +1,11 @@
 
 import React from "react";
 import '../App.css';
+import { useNavigate } from "react-router-dom";
 
 
 function Home() {
-    
+  const navigate = useNavigate();
  return (
    <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -22,9 +23,7 @@ function Home() {
           </div>
 </div>
 
-<button>Click here!</button>
-
-
+<button class="btn btn-primary" onClick={() => navigate('/register')}>Click me!</button>       
 
 
 
