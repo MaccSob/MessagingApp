@@ -19,11 +19,11 @@ h2 {
   transform: rotate(6deg);
   margin: -55px;
 }
-.homewrapper {
+.mainwrapper {
  max-width: 350px;
     margin: 0 auto;}
 
-    .homewrapper img {
+    .mainwrapper img {
     height: auto;
 }
     

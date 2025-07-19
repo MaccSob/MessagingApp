@@ -8,8 +8,7 @@ function Sidebar() {
 
 
         <>
-        
-    
+    <h1>Witam</h1>
         </>
     )
 
@@ -17,3 +16,4 @@ function Sidebar() {
 
 
 }
+export default Sidebar;
