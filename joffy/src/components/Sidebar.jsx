@@ -8,7 +8,8 @@ function Sidebar() {
 
 
         <>
-    <h1>Witam</h1>
+        <h3>Ff</h3>
+    
         </>
     )
 

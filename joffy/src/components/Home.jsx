@@ -7,7 +7,6 @@ import Sidebar from "./Sidebar"
         return (
 
             <>
-            <h1>Witam</h1>
             <Sidebar></Sidebar>
             
             </>
