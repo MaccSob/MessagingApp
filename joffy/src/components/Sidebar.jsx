@@ -8,7 +8,13 @@ function Sidebar() {
 
 
         <>
-        <h3>Ff</h3>
+       <ul>
+       <li>Profile</li>
+       <li>Friends</li>
+       <li></li>
+       <li></li>
+      <a href="/login"> <li>Log out</li> </a>
+       </ul>
     
         </>
     )
