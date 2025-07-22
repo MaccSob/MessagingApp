@@ -9,10 +9,10 @@ function Sidebar() {
 
         <>
        <ul>
-       <li>Profile</li>
+       <a href="/profile"> <li>Profile</li> </a>
        <li>Friends</li>
-       <li></li>
-       <li></li>
+       <li>NotSureWhat</li>
+       <li>NotSureWhat</li>
       <a href="/login"> <li>Log out</li> </a>
        </ul>
     

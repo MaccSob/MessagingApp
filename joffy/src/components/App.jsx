@@ -5,6 +5,7 @@ import Login from './Login';
 import Main from "./Main";
 import Home from "./Home";
 import Register from "./Register";
+import Profile from "./Profile";
 
 function App() {
   
@@ -20,6 +21,8 @@ function App() {
    <Route path="/home" element={<Home/>}/> 
 
     <Route path="/register" element={<Register/>}/>
+
+        <Route path="/profile" element={<Profile/>}/>
 
 
 
