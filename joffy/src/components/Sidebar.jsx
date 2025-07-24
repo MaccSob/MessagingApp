@@ -9,7 +9,7 @@ function Sidebar() {
 
         <>
        <ul>
-       <a href="/profile"> <li>Profile</li> </a>
+       <a href=""> <li>Profile</li></a>
        <li>Friends</li>
        <li>NotSureWhat</li>
        <li>NotSureWhat</li>
