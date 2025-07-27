@@ -1,2 +1,2 @@
 # Messaging App.
-Front-End for the App using Tailwind, React.
+Front-End for the Messaging App (Joffy) using Tailwind,React.
