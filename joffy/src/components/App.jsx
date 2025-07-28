@@ -6,12 +6,14 @@ import Main from "./Main";
 import Home from "./Home";
 import Register from "./Register";
 import Profile from "./Profile";
+import Sidebar from "./Sidebar";
+
 
 function App() {
   
   return ( 
 <BrowserRouter>
-
+    <Sidebar/>
     <Routes>
 
    <Route path="/login" element={<Login/>}/>
