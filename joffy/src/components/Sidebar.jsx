@@ -6,41 +6,82 @@ import { SidebarData } from './SidebarData';
 import '../Sidebar.css';
 import { IconContext } from 'react-icons';
 
-function Sidebar() {
-  const [sidebar, setSidebar] = useState(false);
+const Sidebar = () => {
+    const location = useLocation();
 
-  const showSidebar = () => setSidebar(!sidebar);
+    const [closeMenu, setCloseMenu] = useState(false);
 
-  return (
-    <>
-      <IconContext.Provider value={{ color: '#fff' }}>
-        <div className='navbar'>
-          <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
+    const handleCloseMenu = () => {
+        setCloseMenu(!closeMenu);
+    };
+
+    return (
+        <div className={closeMenu === false ? "sidebar" : "sidebar active"}>
+            <div
+                className={
+                    closeMenu === false
+                        ? "logoContainer"
+                        : "logoContainer active"
+                }
+            >
+                <img src={Icon} alt="icon" className="logo" />
+                <h2 className="title">evergreen. </h2>
+            </div>
+            <div
+                className={
+                    closeMenu === false
+                        ? "burgerContainer"
+                        : "burgerContainer active"
+                }
+            >
+                <div
+                    className="burgerTrigger"
+                    onClick={() => {
+                        handleCloseMenu();
+                    }}
+                ></div>
+                <div className="burgerMenu"></div>
+            </div>
+            <div
+                className={
+                    closeMenu === false
+                        ? "profileContainer"
+                        : "profileContainer active"
+                }
+            >
+                <img src={Profile} alt="profile" className="profile" />
+                <div className="profileContents">
+                    <p className="name">Hello, John👋</p>
+                    <p>johnsmith@gmail.com</p>
+                </div>
+            </div>
+            <div
+                className={
+                    closeMenu === false
+                        ? "contentsContainer"
+                        : "contentsContainer active"
+                }
+            >
+                <ul>
+                    <li className={location.pathname === "/" ? "active" : ""}>
+                        <img src={Dashboard} alt="dashboard" />
+                        <a href="/">dashboard</a>
+                    </li>
+                    <li
+                        className={
+                            location.pathname === "/transactions"
+                                ? "active"
+                                : ""
+                        }
+                    >
+                        <img src={Transactions} alt="transactions" />
+                        <a href="/transactions">transactions</a>
+                    </li>
+
+                </ul>
+            </div>
         </div>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items' onClick={showSidebar}>
-            <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineClose />
-              </Link>
-            </li>
-            {SidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </IconContext.Provider>
-    </>
-  );
-}
+    );
+};
 
 export default Sidebar;
