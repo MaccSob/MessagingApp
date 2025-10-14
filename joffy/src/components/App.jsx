@@ -1,10 +1,9 @@
-import Home from "./Home";
-import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
 
 function App() {
     return (
         <>
-<Sidebar></Sidebar>
+<Navbar></Navbar>
 
         </>
 
