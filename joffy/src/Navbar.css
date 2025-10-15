@@ -1,6 +1,8 @@
 img {
     max-height: 150px;
     max-width: 150px;
+    padding-left: 1%;
+    padding-top: 1%;
 }
 
 
@@ -13,12 +15,20 @@ nav {
     left: 0;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     z-index: 10;
 }
+.wrapper {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+nav>a {
+    padding-right: 2%;
+}
+
 
 nav>ul>li {
-
+    text-decoration: none;
     display: inline-block;
     list-style: none;
     margin: 5px 20px;

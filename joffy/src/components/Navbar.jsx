@@ -1,11 +1,13 @@
+
 import '../Navbar.css';
 
 
 const Navbar = () => {
 
     return (
-
         <>
+
+        <div className='wrapper'>
         <nav>
 
    <img src="/src/assets/logo.png" alt="logo" srcset="" />
@@ -20,7 +22,7 @@ const Navbar = () => {
         <a href="/login">Log In</a>
 
         </nav>
-        
+        </div>
         
         
         </>
