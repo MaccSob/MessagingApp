@@ -25,8 +25,16 @@ nav {
 nav>a {
     padding-right: 2%;
 }
-
-
+button {
+  border-radius: 8px;
+  border: 1px solid #535bf2;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 3.75s;
+}
 nav>ul>li {
     text-decoration: none;
     display: inline-block;
