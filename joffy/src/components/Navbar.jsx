@@ -1,5 +1,8 @@
 
 import '../Navbar.css';
+import { Link } from 'react-router';
+import { Router } from 'react-router';
+
 
 
 const Navbar = () => {
@@ -13,7 +16,7 @@ const Navbar = () => {
    <img src="/src/assets/logo.png" alt="logo" srcset="" />
 
         <ul>
-            <li>Features</li>
+         <Link to={'/login'}> <li>Features</li> </Link>
             <li>Blog</li>
             <li>About Us</li>
             <li>Download</li>
