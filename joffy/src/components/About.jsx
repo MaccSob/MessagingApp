@@ -1,7 +1,7 @@
 
 
 
-const Features = () => {
+const About= () => {
 
 return (
 
@@ -24,4 +24,4 @@ return (
 
 
 
-export default Features;
+export default About;

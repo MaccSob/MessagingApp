@@ -16,10 +16,9 @@ const Navbar = () => {
    <img src="/src/assets/logo.png" alt="logo" srcset="" />
 
         <ul>
-         <Link to={'/login'}> <li>Features</li> </Link>
-            <li>Blog</li>
-            <li>About Us</li>
-            <li>Download</li>
+         <li> <Link to={'/features'}> Features  </Link></li>
+         <li> <Link to={'/blog'}>Blog   </Link></li>
+         <li> <Link to={'/about'}>  About </Link></li>
         </ul>
 
         <button className='btn'>Log In</button>
