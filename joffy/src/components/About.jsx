@@ -1,13 +1,13 @@
 
 
 
-const About= () => {
+const About = () => {
 
 return (
 
 
     <>
-    
+    <h1>Who are we?</h1>
     
     </>
 

@@ -2,11 +2,12 @@
 import '../Navbar.css';
 import { Link } from 'react-router';
 import { Router } from 'react-router';
+import { useNavigate } from "react-router";
 
 
 
 const Navbar = () => {
-
+  let navigate = useNavigate();
     return (
         <>
 
@@ -21,7 +22,7 @@ const Navbar = () => {
          <li> <Link to={'/about'}>  About </Link></li>
         </ul>
 
-        <button className='btn'>Log In</button>
+        <button className='btn' onClick={() => navigate('/signup')}>Join Us!</button>
 
         </nav>
         </div>
