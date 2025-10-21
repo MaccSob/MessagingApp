@@ -44,6 +44,19 @@ nav>ul>li {
     font-size: 18px;
      transition: transform 250ms;
   }
+nav>ul>li::after {
+ content: '';
+ position: absolute;
+ left: 0;
+ bottom: -5px;
+ width:0;
+ height: 1px;
+ background-color: #535bf2;
+ transition: width 0.3s ease-in-out;
+  }
+nav>ul>li:hover::after {
+    width: 100%;
+} 
 
 
 .wrapper > nav:nth-child(1) > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1), .wrapper > nav:nth-child(1) > ul:nth-child(2) > li:nth-child(2) > a:nth-child(1), .wrapper > nav:nth-child(1) > ul:nth-child(2) > li:nth-child(3) > a:nth-child(1) {
