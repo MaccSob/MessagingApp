@@ -1,4 +1,4 @@
-
+import Navbar from "./Navbar";
 
 
 const Blog = () => {
@@ -7,7 +7,8 @@ return (
 
 
     <>
-    
+               <Navbar/>
+
     
     </>
 

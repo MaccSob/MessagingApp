@@ -1,17 +1,19 @@
 import React from "react";
-import '../Profile.css';
+import Navbar from "./Navbar";
 
-
-function Profile() {
+function Home() {
 
     return (
 
         <>
+           <Navbar/>
+
+           
         <h1>SKrr po pow powww </h1>
-   
+
         </>
 
     )
 
 }
-export default Profile;
+export default Home;

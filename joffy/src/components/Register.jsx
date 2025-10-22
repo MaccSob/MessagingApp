@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react';
 import '../Register.css';
-import '../index.css';
 
 
 function Register() {
