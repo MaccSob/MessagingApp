@@ -8,6 +8,7 @@ import Register from "./Register";
 import Blog from "./Blog";
 import About from "./About";
 import Messages from "./Messages";
+import Dashboard from "./Dashboard";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
 <Route path="/features" element={<Features/>}/>
 <Route path="/blog" element={<Blog/>}/> 
 <Route path="/about" element={<About/>}/> 
+<Route path="/dashboard" element={<Dashboard/>}/> 
 
 
 </Routes>
