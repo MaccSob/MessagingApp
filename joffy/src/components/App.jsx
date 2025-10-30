@@ -9,6 +9,7 @@ import Blog from "./Blog";
 import About from "./About";
 import Messages from "./Messages";
 import Dashboard from "./Dashboard";
+import Profile from "./Profile";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
 <Route path="/blog" element={<Blog/>}/> 
 <Route path="/about" element={<About/>}/> 
 <Route path="/dashboard" element={<Dashboard/>}/> 
+<Route path="/profile" element={<Profile/>}/>
 
 
 </Routes>
