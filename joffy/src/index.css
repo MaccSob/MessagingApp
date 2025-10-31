@@ -18,7 +18,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+@layer components {
 
+  .sidebar-icon {
+    @apply relative flex-items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto shadow-lg bg-gray-800 text-green-500;
+  }
+
+}
 
 button {
   border-radius: 8px;
