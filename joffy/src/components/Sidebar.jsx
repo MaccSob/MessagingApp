@@ -1,4 +1,4 @@
-import '../Sidebar.css';
+import '../Sidebar.scss';
 import { Link } from 'react-router';
 
 const Sidebar = () => {
@@ -10,7 +10,6 @@ const Sidebar = () => {
         <Link to={'/messages'}> Messages</Link>
          <Link to={'/profile'}>Profile   </Link>
          <button>Log out</button>
-
 </div>
 
 

@@ -1,5 +1,5 @@
 
-import '../Navbar.css';
+import '../Navbar.scss';
 import { Link } from 'react-router';
 import { Router } from 'react-router';
 import { useNavigate } from "react-router";
