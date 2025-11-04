@@ -33,3 +33,5 @@ const Navbar = () => {
 
 }
 export default Navbar;
+//         <Link to={'/messages'}> Messages</Link>
+   //      <Link to={'/profile'}>Profile   </Link>
