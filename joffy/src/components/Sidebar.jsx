@@ -13,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ChatIcon from '@mui/icons-material/Chat';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router';
 
 
@@ -81,7 +82,10 @@ export default function Sidebar() {
           ))}
         </Link>
         <Divider/>
-        <button>Log Out</button>
+        <button>
+                   <LogoutIcon />
+                   Log out
+        </button>
       </Drawer>
 
     </Box>
