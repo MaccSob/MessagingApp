@@ -4,5 +4,6 @@ Tech used:
 CSS/Sass,
 React,
 NodeJS,
-SocketIO
+SocketIO,
+PASSport for auth
 
