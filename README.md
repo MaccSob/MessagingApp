@@ -5,5 +5,6 @@ CSS/Sass,
 React,
 NodeJS,
 SocketIO,
-PASSport for auth
+Passport,
+MongoDB
 
