@@ -9,7 +9,7 @@ function Home() {
            <Navbar/>
 
            
-        <h1>SKrr po pow powww </h1>
+        <h1> Welcome to Joffy! </h1>
 
         </>
 

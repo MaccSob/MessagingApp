@@ -13,8 +13,8 @@ return (
     <section>
 
     <p>Company based in Transylvania</p>
-    <p>CEO is Dracula.</p>
-    <p>Developers of the App are also vampires.</p>
+    <p>Developers of this thing have way too many teeth...</p>
+    <p>Our aim is to bring people together.</p>
 
     </section>
     
