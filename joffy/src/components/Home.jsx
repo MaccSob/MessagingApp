@@ -10,7 +10,8 @@ function Home() {
 
            
         <h1> Welcome to Joffy! </h1>
-
+        <p>Perfect way to meet new friends!</p>
+        <p>Or if you have them already, best way to stay in touch!</p>
         </>
 
     )
