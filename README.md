@@ -1,23 +1,75 @@
-# 💬 Joffy - Real-Time Enterprise Messaging Platform
+# React + TypeScript + Vite
 
-> A modern, full-stack, bi-directional instant messaging application built to simulate scalable workplace communication networks like Slack or Discord.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 📌 About The Project
-Joffy is a feature-rich chat platform designed to handle persistent, real-time data flow with zero-latency. Moving away from standard request-response HTTP architectures, this application focuses heavily on persistent WebSocket connections, secure session tracking across stateful protocols, and decoupled data layers. It showcases advanced full-stack capabilities including asynchronous event loops, component rendering optimization, and NoSQL document modeling.
+Currently, two official plugins are available:
 
-## 🛠️ Tech Stack
-*   **Frontend:** React.js, SCSS / Sass (Modular & BEM structure)
-*   **Backend:** Node.js, Express.js
-*   **Real-Time Layer:** Socket.io (WebSockets)
-*   **Database:** MongoDB (with Mongoose ODM)
-*   **Authentication:** Passport.js (Secure Session Management)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## 🌟 Advanced Engineering Features
-*   🔌 **Bi-Directional Communication:** Real-time event transport pipeline powered by Socket.io, handling messaging events instantly without API polling.
-*   🔐 **Cross-Protocol Authentication:** Unified session validation ensuring active Passport.js auth states are securely verified during the WebSocket connection handshake.
-*   📊 **Scalable NoSQL Schema:** Heavily optimized MongoDB schemas supporting indexed relations between Users, Rooms (Channels), and Messages.
-*   🎨 **Sass Architecture:** Professional styles written using SCSS mixins, variables, and nesting rules for high maintainability.`
+## React Compiler
 
-## 📈 Engineering Challenges & Architecture Blueprint
-*   **The WebSocket Authentication Dilemma:** Solved the challenge of sharing authentication states between the standard Express HTTP server session and the detached Socket.io environment, preventing unauthenticated connection spam.
-*   **State Consistency in React:** Designed a clean, centralized event handling system on the client side to append incoming socket messages to the React component state smoothly, avoiding memory leaks and unnecessary re-renders.
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+
+Note: This will impact Vite dev & build performances.
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
