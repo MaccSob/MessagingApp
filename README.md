@@ -16,39 +16,7 @@ Joffy is a feature-rich chat platform designed to handle persistent, real-time d
 *   🔌 **Bi-Directional Communication:** Real-time event transport pipeline powered by Socket.io, handling messaging events instantly without API polling.
 *   🔐 **Cross-Protocol Authentication:** Unified session validation ensuring active Passport.js auth states are securely verified during the WebSocket connection handshake.
 *   📊 **Scalable NoSQL Schema:** Heavily optimized MongoDB schemas supporting indexed relations between Users, Rooms (Channels), and Messages.
-*   🎨 **Sass Architecture:** Professional styles written using SCSS mixins, variables, and nesting rules for high maintainability.
-
-## 🚀 How to Run Locally
-
-### Prerequisites
-* Node.js (v18+)
-* MongoDB Instance (Local or Atlas cloud cluster)
-* Git
-
-### Quick Start
-1. Clone the repository:
-   ```bash
-   git clone github.com
-   ```
-2. Navigate to the project root directory:
-   ```bash
-   cd MessagingApp
-   ```
-3. Install dependencies for both Backend and Frontend:
-   ```bash
-   npm install
-   # If frontend is nested, navigate to your client folder and run: npm install
-   ```
-4. Setup your environment variables (`.env`):
-   ```env
-   PORT=5000
-   MONGO_URI=mongodb://localhost:27017/joffy_db
-   SESSION_SECRET=your_production_secret_key
-   ```
-5. Run the dev suite:
-   ```bash
-   npm run dev
-   ```
+*   🎨 **Sass Architecture:** Professional styles written using SCSS mixins, variables, and nesting rules for high maintainability.`
 
 ## 📈 Engineering Challenges & Architecture Blueprint
 *   **The WebSocket Authentication Dilemma:** Solved the challenge of sharing authentication states between the standard Express HTTP server session and the detached Socket.io environment, preventing unauthenticated connection spam.
