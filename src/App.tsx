@@ -1,14 +1,13 @@
-import './App.css'
-
-
+import React from 'react';
+import { LoginForm } from './pages/login';
+import './App.css';
 
 function App() {
-
   return (
-    <>
-  'asdas'
-    </>
-  )
+    <div className="App">
+      <LoginForm />
+    </div>
+  );
 }
 
-export default App
+export default App;
