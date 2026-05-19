@@ -1,77 +1,155 @@
-import React, { useState } from 'react';
+import { useState, useRef, useEffect } from "react";
+import '../App.css';
 
+type Field = "email" | "password";
 
-export const LoginForm: React.FC = () => {
-    
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+interface FormState {
+  email: string;
+  password: string;
+  errors: Partial<Record<Field, string>>;
+  loading: boolean;
+  success: boolean;
+}
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError('');
+export default function LoginForm() {
+  const [form, setForm] = useState<FormState>({
+    email: "",
+    password: "",
+    errors: {},
+    loading: false,
+    success: false,
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [focused, setFocused] = useState<Field | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const emailRef = useRef<HTMLInputElement>(null);
 
-    if (!email || !password) {
-      setError('Wszystkie pola są wymagane.');
-      return;
-    }
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+    emailRef.current?.focus();
+  }, []);
 
-    setIsLoading(true);
-
-    try {
-      // API here (np. fetch('/api/login'))
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      console.log('Zalogowano pomyślnie!', { email, password });
-      alert('Zalogowano pomyślnie!');
-      
-      setEmail('');
-      setPassword('');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      setError('Niepoprawny e-mail lub hasło.');
-    } finally {
-      setIsLoading(false);
-    }
+  const validate = (): Partial<Record<Field, string>> => {
+    const errs: Partial<Record<Field, string>> = {};
+    if (!form.email.trim()) errs.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      errs.email = "Enter a valid email";
+    if (!form.password) errs.password = "Password is required";
+    else if (form.password.length < 8)
+      errs.password = "Minimum 8 characters";
+    return errs;
   };
 
+  const handleSubmit = async () => {
+    const errors = validate();
+    if (Object.keys(errors).length) {
+      setForm((f) => ({ ...f, errors }));
+      return;
+    }
+    setForm((f) => ({ ...f, loading: true, errors: {} }));
+    await new Promise((r) => setTimeout(r, 1400));
+    setForm((f) => ({ ...f, loading: false, success: true }));
+  };
+
+  const handleChange = (field: Field) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((f) => ({
+      ...f,
+      [field]: e.target.value,
+      errors: { ...f.errors, [field]: undefined },
+    }));
+  };
+
+  if (form.success) {
+    return (
+      <div className="page">
+        <div className={`card success-card ${mounted ? "in" : ""}`}>
+          <div className="success-icon">✓</div>
+          <h2 className="success-title">Welcome back.</h2>
+          <p className="success-sub">You're signed in.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        <h2>Zaloguj się</h2>
-        
-        {error && <div className="error-message">{error}</div>}
-
-        <div className="form-group">
-          <label htmlFor="email">E-mail:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-            placeholder="twój@email.com"
-            disabled={isLoading}
-          />
+    <div className="page">
+      <div className={`card ${mounted ? "in" : ""}`}>
+        {/* Header */}
+        <div className="card-header">
+          <div className="logo">♣♥</div>
+          <h1 className="title">Sign in</h1>
+          <p className="subtitle">Welcome back — we missed you.</p>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Hasło:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            disabled={isLoading}
-          />
+        {/* Fields */}
+        <div className="fields">
+          <div className={`field ${focused === "email" ? "active" : ""} ${form.errors.email ? "has-error" : ""}`}>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              ref={emailRef}
+              type="email"
+              autoComplete="email"
+              value={form.email}
+              onChange={handleChange("email")}
+              onFocus={() => setFocused("email")}
+              onBlur={() => setFocused(null)}
+              placeholder="you@example.com"
+            />
+            {form.errors.email && <span className="error">{form.errors.email}</span>}
+          </div>
+
+          <div className={`field ${focused === "password" ? "active" : ""} ${form.errors.password ? "has-error" : ""}`}>
+            <label htmlFor="password">Password</label>
+            <div className="input-wrap">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                value={form.password}
+                onChange={handleChange("password")}
+                onFocus={() => setFocused("password")}
+                onBlur={() => setFocused(null)}
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                className="toggle-pw"
+                onClick={() => setShowPassword((s) => !s)}
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? "hide" : "show"}
+              </button>
+            </div>
+            {form.errors.password && <span className="error">{form.errors.password}</span>}
+          </div>
         </div>
 
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logowanie...' : 'Zaloguj się'}
+        {/* Options row */}
+        <div className="options-row">
+          <label className="remember">
+            <input type="checkbox" />
+            <span>Remember me</span>
+          </label>
+          <a href="#" className="forgot">Forgot password?</a>
+        </div>
+
+        {/* Submit */}
+        <button
+          className={`submit ${form.loading ? "loading" : ""}`}
+          onClick={handleSubmit}
+          disabled={form.loading}
+        >
+          {form.loading ? <span className="spinner" /> : "Continue →"}
         </button>
-      </form>
+
+        {/* Footer */}
+        <p className="footer-text">
+          No account?{" "}
+          <a href="#" className="link">Create one</a>
+        </p>
+      </div>
     </div>
   );
-};
+}

@@ -1,80 +1,249 @@
-.login-container {
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap");
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0d0d0f;
+  --surface:   #141417;
+  --border:    rgba(255,255,255,0.08);
+  --border-hi: rgba(255,255,255,0.22);
+  --text:      #e8e8ec;
+  --muted:     #6b6b78;
+  --accent:    #57f0eb;    /* electric lime */
+  --accent-dim:#3fb6b8;
+  --danger:    #ff6b6b;
+  --radius:    14px;
+  --trans:     all .18s ease;
+}
+
+/* ── Page ───────────────────────────────────────────────────── */
+.page {
+  min-height: 100dvh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  font-family: sans-serif;
+  justify-content: center;
+  background: var(--bg);
+  font-family: "DM Sans", sans-serif;
+
+  /* subtle grain */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200,240,87,.07), transparent),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
 }
 
-.login-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+  width: min(420px, calc(100vw - 32px));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 36px 32px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.5);
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.card.in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.login-form h2 {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  color: #333;
-  text-align: center;
-}
-
-.form-group {
-  margin-bottom: 1.25rem;
-}
-
-.form-group label {
+/* ── Header ─────────────────────────────────────────────────── */
+.logo {
+  font-size: 54px;
+  color: var(--accent);
+  margin-bottom: 20px;
   display: block;
-  margin-bottom: 0.5rem;
-  color: #666;
-  font-size: 0.9rem;
+  line-height: 1;
+}
+.title {
+  font-family: "DM Serif Display", serif;
+  font-size: 2rem;
+  color: var(--text);
+  letter-spacing: -.01em;
+  margin-bottom: 6px;
+}
+.subtitle {
+  font-size: .875rem;
+  color: var(--muted);
+  margin-bottom: 30px;
 }
 
-.form-group input {
+/* ── Fields ─────────────────────────────────────────────────── */
+.fields { display: flex; flex-direction: column; gap: 18px; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.field label {
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: var(--trans);
+}
+.field.active label { color: var(--accent); }
+.field.has-error label { color: var(--danger); }
+
+.field input,
+.input-wrap {
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: var(--trans);
+}
+
+.field input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 1rem;
-}
-
-.form-group input:focus {
+  padding: 11px 14px;
+  font-family: inherit;
+  font-size: .95rem;
+  color: var(--text);
   outline: none;
-  border-color: #0066cc;
 }
 
-button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #0066cc;
-  color: white;
+.input-wrap {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+}
+.input-wrap input {
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  background: transparent;
+  flex: 1;
+}
+
+.field.active input,
+.field.active .input-wrap { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(200,240,87,.08); }
+.field.has-error input,
+.field.has-error .input-wrap { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(255,107,107,.08); }
+
+input::placeholder { color: var(--muted); }
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 40px var(--surface) inset !important;
+  -webkit-text-fill-color: var(--text) !important;
+}
+
+.toggle-pw {
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-family: inherit;
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: .04em;
+  padding: 4px;
+  transition: var(--trans);
+}
+.toggle-pw:hover { color: var(--text); }
+
+.error {
+  font-size: .775rem;
+  color: var(--danger);
+  margin-top: 2px;
 }
 
-button:hover {
-  background-color: #0052a3;
+/* ── Options row ─────────────────────────────────────────────── */
+.options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: .85rem;
+  color: var(--muted);
+  user-select: none;
+}
+.remember input[type=checkbox] {
+  width: 15px; height: 15px;
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 
-.error-message {
-  background-color: #ffe6e6;
-  color: #cc0000;
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
+.forgot {
+  font-size: .85rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: var(--trans);
+}
+.forgot:hover { color: var(--accent); }
+
+/* ── Submit ──────────────────────────────────────────────────── */
+.submit {
+  margin-top: 26px;
+  width: 100%;
+  padding: 13px;
+  background: var(--accent);
+  color: #0d0d0f;
+  font-family: inherit;
+  font-size: .95rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background .18s ease, transform .12s ease, opacity .18s ease;
+}
+.submit:hover:not(:disabled) { background: var(--accent-dim); transform: translateY(-1px); }
+.submit:active:not(:disabled) { transform: translateY(0); }
+.submit:disabled { opacity: .6; cursor: not-allowed; }
+
+/* spinner */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(0,0,0,.25);
+  border-top-color: #0d0d0f;
+  border-radius: 50%;
+  animation: spin .65s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.footer-text {
+  margin-top: 22px;
   text-align: center;
+  font-size: .85rem;
+  color: var(--muted);
 }
+.link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--trans);
+}
+.link:hover { color: var(--accent-dim); }
+
+/* ── Success state ───────────────────────────────────────────── */
+.success-card {
+  text-align: center;
+  padding: 64px 36px;
+}
+.success-icon {
+  width: 56px; height: 56px;
+  background: var(--accent);
+  color: #0d0d0f;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+.success-title {
+  font-family: "DM Serif Display", serif;
+  font-size: 1.75rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.success-sub { font-size: .9rem; color: var(--muted); }
