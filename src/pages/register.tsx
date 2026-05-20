@@ -82,7 +82,6 @@ export default function Register() {
     <div className="shell">
       <aside className="panel">
         <img src={logo} alt="Joffy" className="panel-logo" />
-        <span className="panel-wordmark">JOFFY</span>
         <div className="panel-rule" />
         <p className="panel-tagline">Join the conversation. It's free, always.</p>
       </aside>
@@ -104,12 +103,12 @@ export default function Register() {
               <div className="row-2">
                 <div className={cls("firstName")}>
                   <label htmlFor="firstName">First name</label>
-                  <input id="firstName" ref={firstRef} type="text" autoComplete="given-name" placeholder="Jane" {...fp("firstName")} />
+                  <input id="firstName" ref={firstRef} type="text" autoComplete="given-name" placeholder="Jan" {...fp("firstName")} />
                   {form.errors.firstName && <span className="error">{form.errors.firstName}</span>}
                 </div>
                 <div className={cls("lastName")}>
                   <label htmlFor="lastName">Last name</label>
-                  <input id="lastName" type="text" autoComplete="family-name" placeholder="Doe" {...fp("lastName")} />
+                  <input id="lastName" type="text" autoComplete="family-name" placeholder="Kowalski" {...fp("lastName")} />
                   {form.errors.lastName && <span className="error">{form.errors.lastName}</span>}
                 </div>
               </div>
@@ -119,7 +118,7 @@ export default function Register() {
                 <label htmlFor="nickname">Nickname / Login</label>
                 <div className="prefix-wrap">
                   <span className="prefix">@</span>
-                  <input id="nickname" type="text" autoComplete="username" placeholder="jane_doe" {...fp("nickname")} />
+                  <input id="nickname" type="text" autoComplete="username" placeholder="jan_kowalski123" {...fp("nickname")} />
                 </div>
                 {form.errors.nickname && <span className="error">{form.errors.nickname}</span>}
               </div>
@@ -127,7 +126,7 @@ export default function Register() {
               {/* Email */}
               <div className={cls("email")}>
                 <label htmlFor="email">Email</label>
-                <input id="email" type="email" autoComplete="email" placeholder="you@example.com" {...fp("email")} />
+                <input id="email" type="email" autoComplete="email" placeholder="jankowalski@gmail.com" {...fp("email")} />
                 {form.errors.email && <span className="error">{form.errors.email}</span>}
               </div>
 
@@ -167,7 +166,7 @@ export default function Register() {
               {form.loading ? <span className="spinner" /> : "Create account →"}
             </button>
 
-            <p className="footer-text">Already have an account? <a href="#" className="link">Sign in</a></p>
+            <p className="footer-text">Already have an account? <a href="/login" className="link">Sign in</a></p>
           </div>
         )}
       </div>

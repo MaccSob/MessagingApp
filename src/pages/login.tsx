@@ -43,7 +43,6 @@ export default function Login() {
     <div className="shell">
       <aside className="panel">
         <img src={logo} alt="Joffy" className="panel-logo" />
-        <span className="panel-wordmark">JOFFY</span>
         <div className="panel-rule" />
         <p className="panel-tagline">Messages that actually feel like you.</p>
       </aside>
@@ -64,7 +63,7 @@ export default function Login() {
               <div className={cls("email")}>
                 <label htmlFor="email">Email</label>
                 <input id="email" ref={emailRef} type="email" autoComplete="email"
-                  placeholder="you@example.com" value={form.email} onChange={handleChange("email")}
+                  placeholder="jankowalski@gmail.com" value={form.email} onChange={handleChange("email")}
                   onFocus={() => setFocused("email")} onBlur={() => setFocused(null)} />
                 {form.errors.email && <span className="error">{form.errors.email}</span>}
               </div>
@@ -92,7 +91,7 @@ export default function Login() {
               {form.loading ? <span className="spinner" /> : "Sign in →"}
             </button>
             <div className="or-divider">or</div>
-            <p className="footer-text">No account yet? <a href="#" className="link">Join JOFFY</a></p>
+            <p className="footer-text">No account yet? <a href="/register" className="link">Click to join Joffy!</a></p>
           </div>
         )}
       </div>
