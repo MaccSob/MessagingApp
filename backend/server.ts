@@ -13,9 +13,10 @@ app.get('/api/users', async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany();
     res.json(users);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     res.status(500).json({ error: "Database error" });
   }
 });
 
-app.listen(51214, () => console.log('Server running on http://localhost:51214'));
+app.listen(5000, () => console.log('Server running on http://localhost:5000'));
