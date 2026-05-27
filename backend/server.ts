@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import { PrismaClient } from '@prisma/client/extension';
 import cors from 'cors'
 
@@ -8,14 +8,17 @@ const prisma = new PrismaClient();
 app.use(cors()); 
 app.use(express.json());
 
-// Get all users from PostgreSQL
-app.get('/api/users', async (req: Request, res: Response) => {
+app.post('/api/users', async (req, res) => {
+  const { name, email } = req.body; // Destructure the form data
+
   try {
-    const users = await prisma.user.findMany();
-    res.json(users);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // Use Prisma to insert it into PostgreSQL
+    const newUser = await prisma.user.create({
+      data: { name, email },
+    });
+    res.status(201).json(newUser);
   } catch (error) {
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({ error: 'Something went wrong saving the user.' });
   }
 });
 
