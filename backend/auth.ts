@@ -1,4 +1,4 @@
-// src/routes/auth.ts
+
 import { Router, Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -8,7 +8,6 @@ const router = Router();
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-// POST /auth/register
 router.post("/register", async (req: Request, res: Response) => {
   const { firstName, lastName, username, email, password } = req.body;
 
@@ -29,7 +28,7 @@ router.post("/register", async (req: Request, res: Response) => {
   res.status(201).json({ token, user: { id: user.id, nickname: user.username } });
 });
 
-// POST /auth/login
+
 router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
