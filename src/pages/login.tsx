@@ -1,23 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef, useEffect } from "react";
-import "../App.css";
-import logo from "../assets/logo.png";
+import "../App.css"
+import logo from "../assets/logo.png"
+import { loginUser } from "../api"
 
 type Field = "email" | "password";
+
 interface FormState {
-  email: string; password: string;
+  email: string;
+  password: string;
   errors: Partial<Record<Field, string>>;
-  loading: boolean; success: boolean;
+  loading: boolean;
+  success: boolean;
 }
 
-export default function Login() {
-  const [form, setForm] = useState<FormState>({ email:"", password:"", errors:{}, loading:false, success:false });
+export default function LoginForm() {
+  const [form, setForm] = useState<FormState>({
+    email: "", password: "", errors: {}, loading: false, success: false,
+  });
   const [showPw, setShowPw] = useState(false);
   const [focused, setFocused] = useState<Field | null>(null);
   const emailRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => { emailRef.current?.focus(); }, []);
 
-  const validate = () => {
-    const e: Partial<Record<Field,string>> = {};
+  const validate = (): Partial<Record<Field, string>> => {
+    const e: Partial<Record<Field, string>> = {};
     if (!form.email.trim()) e.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email";
     if (!form.password) e.password = "Password is required";
@@ -27,10 +35,26 @@ export default function Login() {
 
   const handleSubmit = async () => {
     const errors = validate();
-    if (Object.keys(errors).length) { setForm(f => ({ ...f, errors })); return; }
+    if (Object.keys(errors).length) {
+      setForm(f => ({ ...f, errors }));
+      return;
+    }
+
     setForm(f => ({ ...f, loading: true, errors: {} }));
-    await new Promise(r => setTimeout(r, 1400));
-    setForm(f => ({ ...f, loading: false, success: true }));
+
+    try {
+      await loginUser(form.email, form.password);
+      // Token is stored in an httpOnly cookie by the server automatically.
+      // Redirect or update app state here, e.g.:
+      // navigate("/chat");
+      setForm(f => ({ ...f, loading: false, success: true }));
+    } catch (err: any) {
+      setForm(f => ({
+        ...f,
+        loading: false,
+        errors: { password: err.message ?? "Invalid email or password" },
+      }));
+    }
   };
 
   const handleChange = (field: Field) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -43,6 +67,7 @@ export default function Login() {
     <div className="shell">
       <aside className="panel">
         <img src={logo} alt="Joffy" className="panel-logo" />
+        <span className="panel-wordmark">JOFFY</span>
         <div className="panel-rule" />
         <p className="panel-tagline">Messages that actually feel like you.</p>
       </aside>
@@ -62,19 +87,39 @@ export default function Login() {
             <div className="fields">
               <div className={cls("email")}>
                 <label htmlFor="email">Email</label>
-                <input id="email" ref={emailRef} type="email" autoComplete="email"
-                  placeholder="jankowalski@gmail.com" value={form.email} onChange={handleChange("email")}
-                  onFocus={() => setFocused("email")} onBlur={() => setFocused(null)} />
+                <input
+                  id="email"
+                  ref={emailRef}
+                  type="email"
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  value={form.email}
+                  onChange={handleChange("email")}
+                  onFocus={() => setFocused("email")}
+                  onBlur={() => setFocused(null)}
+                />
                 {form.errors.email && <span className="error">{form.errors.email}</span>}
               </div>
 
               <div className={cls("password")}>
                 <label htmlFor="password">Password</label>
                 <div className="input-wrap">
-                  <input id="password" type={showPw ? "text" : "password"} autoComplete="current-password"
-                    placeholder="••••••••" value={form.password} onChange={handleChange("password")}
-                    onFocus={() => setFocused("password")} onBlur={() => setFocused(null)} />
-                  <button type="button" className="toggle-pw" onClick={() => setShowPw(s => !s)} aria-label="Toggle password">
+                  <input
+                    id="password"
+                    type={showPw ? "text" : "password"}
+                    autoComplete="current-password"
+                    placeholder="••••••••"
+                    value={form.password}
+                    onChange={handleChange("password")}
+                    onFocus={() => setFocused("password")}
+                    onBlur={() => setFocused(null)}
+                  />
+                  <button
+                    type="button"
+                    className="toggle-pw"
+                    onClick={() => setShowPw(s => !s)}
+                    aria-label="Toggle password visibility"
+                  >
                     {showPw ? "hide" : "show"}
                   </button>
                 </div>
@@ -83,15 +128,21 @@ export default function Login() {
             </div>
 
             <div className="opts">
-              <label className="remember"><input type="checkbox" /> Remember me</label>
+              <label className="remember">
+                <input type="checkbox" /> Remember me
+              </label>
               <a href="#" className="forgot">Forgot password?</a>
             </div>
 
             <button className="submit" onClick={handleSubmit} disabled={form.loading}>
               {form.loading ? <span className="spinner" /> : "Sign in →"}
             </button>
+
             <div className="or-divider">or</div>
-            <p className="footer-text">No account yet? <a href="/register" className="link">Click to join Joffy!</a></p>
+
+            <p className="footer-text">
+              No account yet? <a href="/register" className="link">Join JOFFY</a>
+            </p>
           </div>
         )}
       </div>

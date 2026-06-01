@@ -1,14 +1,15 @@
-
-import { Router, Request, Response } from "express";
+import pkg from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
+const { Router } = pkg;
+import type { Request, Response } from "express";
 
-const router = Router();
+const authRouter = Router();
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-router.post("/register", async (req: Request, res: Response) => {
+authRouter.post("/register", async (req: Request, res: Response) => {
   const { firstName, lastName, username, email, password } = req.body;
 
   const exists = await prisma.user.findFirst({
@@ -29,7 +30,7 @@ router.post("/register", async (req: Request, res: Response) => {
 });
 
 
-router.post("/login", async (req: Request, res: Response) => {
+authRouter.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const user = await prisma.user.findUnique({ where: { email } });
@@ -41,4 +42,4 @@ router.post("/login", async (req: Request, res: Response) => {
   res.json({ token, user: { id: user.id, nickname: user.passwordHash } });
 });
 
-export default router;
+export default authRouter;

@@ -1,27 +1,19 @@
-import express from 'express';
-import { PrismaClient } from '@prisma/client/extension';
-import cors from 'cors'
-import router from './auth';
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import authRouter from "./auth"
 
 const app = express();
-const prisma = new PrismaClient();
-app.use("/auth", router);
-app.use(cors()); 
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 app.use(express.json());
+app.use(cookieParser());
 
-app.post('/api/users', async (req, res) => {
-  const { name, email } = req.body; // Destructure the form data
+app.get("/ping", (_req, res) => res.json({ ok: true })); // test route
 
-  try {
-    // Use Prisma to insert it into PostgreSQL
-    const newUser = await prisma.user.create({
-      data: { name, email },
-    });
-    res.status(201).json(newUser);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    res.status(500).json({ error: 'Something went wrong saving the user.' });
-  }
-});
+app.use("/auth", authRouter);
 
-app.listen(5000, () => console.log('Server running on http://localhost:5000'));
+app.listen(4000, () => console.log("✅ running on http://localhost:4000"));
