@@ -4,12 +4,12 @@ import "../App.css"
 import logo from "../assets/logo.png"
 import { registerUser } from "../api"
 
-type Field = "firstName" | "lastName" | "nickname" | "email" | "password" | "confirm";
+type Field = "firstName" | "lastName" | "username" | "email" | "password" | "confirm";
 
 interface FormState {
   firstName: string;
   lastName: string;
-  nickname: string;
+  username: string;
   email: string;
   password: string;
   confirm: string;
@@ -19,7 +19,7 @@ interface FormState {
 }
 
 const INITIAL: FormState = {
-  firstName: "", lastName: "", nickname: "", email: "", password: "", confirm: "",
+  firstName: "", lastName: "", username: "", email: "", password: "", confirm: "",
   errors: {}, loading: false, success: false,
 };
 
@@ -65,9 +65,9 @@ export default function RegisterForm() {
     const e: Partial<Record<Field, string>> = {};
     if (!form.firstName.trim()) e.firstName = "Required";
     if (!form.lastName.trim()) e.lastName = "Required";
-    if (!form.nickname.trim()) e.nickname = "Nickname is required";
-    else if (!/^[a-zA-Z0-9_]{3,20}$/.test(form.nickname))
-      e.nickname = "3–20 chars, letters/numbers/_";
+    if (!form.username.trim()) e.username = "Nickname is required";
+    else if (!/^[a-zA-Z0-9_]{3,20}$/.test(form.username))
+      e.username = "3–20 chars, letters/numbers/_";
     if (!form.email.trim()) e.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email";
@@ -91,7 +91,7 @@ export default function RegisterForm() {
       await registerUser({
         firstName: form.firstName,
         lastName: form.lastName,
-        nickname: form.nickname,
+        username: form.username,
         email: form.email,
         password: form.password,
       });
@@ -100,7 +100,7 @@ export default function RegisterForm() {
       // navigate("/chat");
       setForm(f => ({ ...f, loading: false, success: true }));
     } catch (err: any) {
-      // Server sends { field, message } on conflicts (duplicate email/nickname).
+      // Server sends { field, message } on conflicts (duplicate email/username).
       // Falls back to a generic error on the email field if no field is specified.
       const field: Field = (err.field as Field) ?? "email";
       setForm(f => ({
@@ -138,7 +138,7 @@ export default function RegisterForm() {
           <div className="success-wrap">
             <div className="success-icon">✓</div>
             <h2 className="success-title">You're in.</h2>
-            <p className="success-sub">Welcome to JOFFY, @{form.nickname}.</p>
+            <p className="success-sub">Welcome to JOFFY, @{form.username}.</p>
           </div>
         ) : (
           <div className="form-inner">
@@ -174,19 +174,19 @@ export default function RegisterForm() {
               </div>
 
               {/* Nickname */}
-              <div className={cls("nickname")}>
-                <label htmlFor="nickname">Nickname / Login</label>
+              <div className={cls("username")}>
+                <label htmlFor="username">Nickname / Login</label>
                 <div className="prefix-wrap">
                   <span className="prefix">@</span>
                   <input
-                    id="nickname"
+                    id="username"
                     type="text"
                     autoComplete="username"
                     placeholder="jane_doe"
-                    {...fp("nickname")}
+                    {...fp("username")}
                   />
                 </div>
-                {form.errors.nickname && <span className="error">{form.errors.nickname}</span>}
+                {form.errors.username && <span className="error">{form.errors.username}</span>}
               </div>
 
               {/* Email */}

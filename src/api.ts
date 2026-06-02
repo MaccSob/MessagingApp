@@ -30,7 +30,7 @@ export const loginUser = (email: string, password: string) =>
 export const registerUser = (payload: {
   firstName: string;
   lastName: string;
-  nickname: string;
+  username: string;
   email: string;
   password: string;
 }) => request<{ user: AuthUser }>("/auth/register", payload);

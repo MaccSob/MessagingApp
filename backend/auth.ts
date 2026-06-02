@@ -10,36 +10,60 @@ const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET!;
 
 authRouter.post("/register", async (req: Request, res: Response) => {
-  const { firstName, lastName, username, email, password } = req.body;
+  try {
+    const { firstName, lastName, username, email, password } = req.body;
 
-  const exists = await prisma.user.findFirst({
-    where: { OR: [{ email }, { username }] },
-  });
-  if (exists) {
-    const field = exists.email === email ? "email" : "nickname";
-    return res.status(409).json({ field, message: `${field} already taken` });
+    const exists = await prisma.user.findFirst({
+      where: { OR: [{ email }, { username }] },
+    });
+    if (exists) {
+      const field = exists.email === email ? "email" : "username";
+      return res.status(409).json({ field, message: `${field} already taken` });
+    }
+
+    const hashed = await bcrypt.hash(password, 12);
+    const user = await prisma.user.create({
+      data: { firstName, lastName, username, email, passwordHash: hashed },
+    });
+
+    res
+      .cookie("token", jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" }), {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .status(201)
+      .json({ user: { id: user.id, nickname: user.username } });
+
+  } catch (err) {
+    console.error("REGISTER ERROR:", err);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-  const hashed = await bcrypt.hash(password, 12);
-  const user = await prisma.user.create({
-    data: { firstName, lastName, username, email, passwordHash: hashed },
-  });
-
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" });
-  res.status(201).json({ token, user: { id: user.id, nickname: user.username } });
 });
 
-
 authRouter.post("/login", async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
-    return res.status(401).json({ message: "Invalid email or password" });
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    res
+      .cookie("token", jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" }), {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .json({ user: { id: user.id, nickname: user.username } });
+
+  } catch (err) {
+    console.error("LOGIN ERROR:", err);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" });
-  res.json({ token, user: { id: user.id, nickname: user.passwordHash } });
 });
 
 export default authRouter;
