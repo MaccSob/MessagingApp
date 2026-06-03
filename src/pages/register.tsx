@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import "../App.css"
 import logo from "../assets/logo.png"
 import { registerUser } from "../api"
+import { useNavigate } from "react-router";
 
 type Field = "firstName" | "lastName" | "username" | "email" | "password" | "confirm";
 
@@ -31,6 +32,7 @@ function PasswordStrength({ password }: { password: string }) {
     /[0-9]/.test(password),
     /[^A-Za-z0-9]/.test(password),
   ];
+  
   const score = checks.filter(Boolean).length;
   const labels = ["", "Weak", "Fair", "Good", "Strong"];
   const colors = ["", "#e00", "#f5a623", "#5a9e6f", "#E8000D"];
@@ -53,6 +55,7 @@ function PasswordStrength({ password }: { password: string }) {
 }
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const [form, setForm] = useState<FormState>(INITIAL);
   const [showPw, setShowPw] = useState(false);
   const [showCf, setShowCf] = useState(false);
@@ -97,7 +100,7 @@ export default function RegisterForm() {
       });
       // Token is stored in an httpOnly cookie by the server automatically.
       // Redirect or update app state here, e.g.:
-      // navigate("/chat");
+     navigate("/login");
       setForm(f => ({ ...f, loading: false, success: true }));
     } catch (err: any) {
       // Server sends { field, message } on conflicts (duplicate email/username).

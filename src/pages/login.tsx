@@ -3,6 +3,9 @@ import { useState, useRef, useEffect } from "react";
 import "../App.css"
 import logo from "../assets/logo.png"
 import { loginUser } from "../api"
+import { useNavigate } from "react-router";
+
+
 
 type Field = "email" | "password";
 
@@ -15,6 +18,7 @@ interface FormState {
 }
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [form, setForm] = useState<FormState>({
     email: "", password: "", errors: {}, loading: false, success: false,
   });
@@ -46,7 +50,7 @@ export default function LoginForm() {
       await loginUser(form.email, form.password);
       // Token is stored in an httpOnly cookie by the server automatically.
       // Redirect or update app state here, e.g.:
-      // navigate("/chat");
+       navigate("/chat");
       setForm(f => ({ ...f, loading: false, success: true }));
     } catch (err: any) {
       setForm(f => ({

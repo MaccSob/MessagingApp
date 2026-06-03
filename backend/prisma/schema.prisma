@@ -18,30 +18,36 @@ model User {
   passwordHash String
   createdAt    DateTime      @default(now())
   
+
+  conversationsAsA Conversation[] @relation("ConversationUserA")
+  conversationsAsB Conversation[] @relation("ConversationUserB")
   // Relacje: Użytkownik może napisać wiele wiadomości
   messages     Message[]
 }
 
-model Channel {
-  id          Int           @id @default(autoincrement())
-  name        String
-  description String?
-  createdAt   DateTime      @default(now())
-  
-  // Relacje: Kanał ma w sobie wiele wiadomości
+model Conversation {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+
+  // the two participants
+  userAId     Int
+  userA       User      @relation("ConversationUserA", fields: [userAId], references: [id], onDelete: Cascade)
+  userBId     Int
+  userB       User      @relation("ConversationUserB", fields: [userBId], references: [id], onDelete: Cascade)
+
   messages    Message[]
+
+  @@unique([userAId, userBId]) // one conversation per pair
 }
 
 model Message {
-  id        Int      @id @default(autoincrement())
-  content   String
-  createdAt DateTime @default(now())
+  id             Int          @id @default(autoincrement())
+  content        String
+  createdAt      DateTime     @default(now())
 
-  // Relacja do Użytkownika (Autora)
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId       Int
+  author         User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
-  // Relacja do Kanału
-  channelId Int
-  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  conversationId Int
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 }
