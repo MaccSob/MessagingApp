@@ -34,7 +34,7 @@ authRouter.post("/register", async (req: Request, res: Response) => {
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(201)
-      .json({ user: { id: user.id, nickname: user.username } });
+      .json({ user: { id: user.id, username: user.username } });
 
   } catch (err) {
     console.error("REGISTER ERROR:", err);
@@ -58,10 +58,24 @@ authRouter.post("/login", async (req: Request, res: Response) => {
         sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
-      .json({ user: { id: user.id, nickname: user.username } });
+      .json({ user: { id: user.id, username: user.username } });
 
   } catch (err) {
     console.error("LOGIN ERROR:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+authRouter.get("/me", async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).userId;
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, username: true, firstName: true, lastName: true, email: true },
+    });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (err) {
+    console.error("GET /auth/me:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 });

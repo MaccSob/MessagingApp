@@ -52,7 +52,7 @@ function avatarColor(id: number) {
   return AVATAR_COLORS[id % AVATAR_COLORS.length];
 }
 
-export default function Chat() {
+export default function Home() {
   const navigate = useNavigate();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeId, setActiveId] = useState<number | null>(null);
@@ -82,25 +82,33 @@ export default function Chat() {
       const data = await res.json();
       setMyId(data.id);
       setMyUsername(data.username);
-    } catch {}
+    } catch (err) {
+      console.error("fetchMe failed:", err);
+    }
   }
 
   async function fetchConversations() {
     try {
       const res = await fetch(`${API}/conversations`, { credentials: "include" });
       if (res.status === 401) { navigate("/login"); return; }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setConversations(data);
-    } catch {}
+    } catch (err) {
+      console.error("fetchConversations failed:", err);
+    }
   }
 
   async function openConversation(id: number) {
     setActiveId(id);
     try {
       const res = await fetch(`${API}/conversations/${id}/messages`, { credentials: "include" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setMessages(data);
-    } catch {}
+    } catch (err) {
+      console.error("openConversation failed:", err);
+    }
   }
 
   async function sendMessage() {
@@ -114,14 +122,20 @@ export default function Chat() {
         credentials: "include",
         body: JSON.stringify({ content }),
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const msg = await res.json();
       setMessages((prev) => [...prev, msg]);
       setConversations((prev) =>
         prev.map((c) =>
-          c.id === activeId ? { ...c, lastMessage: { content, createdAt: msg.createdAt } } : c
+          c.id === activeId
+            ? { ...c, lastMessage: { content, createdAt: msg.createdAt } }
+            : c
         )
       );
-    } catch {}
+    } catch (err) {
+      console.error("sendMessage failed:", err);
+      setInput(content); // restore so the user doesn't lose their message
+    }
   }
 
   async function startDm() {
@@ -139,7 +153,10 @@ export default function Chat() {
       setDmTarget("");
       await fetchConversations();
       openConversation(data.id);
-    } catch {}
+    } catch (err) {
+      console.error("startDm failed:", err);
+      setDmError("Something went wrong. Try again.");
+    }
   }
 
   const active = conversations.find((c) => c.id === activeId);
@@ -225,7 +242,10 @@ export default function Chat() {
         ) : (
           <>
             <div className="chat-header">
-              <div className="chat-header-avatar" style={{ background: avatarColor(active.otherUser.id) }}>
+              <div
+                className="chat-header-avatar"
+                style={{ background: avatarColor(active.otherUser.id) }}
+              >
                 {initials(active.otherUser)}
               </div>
               <div className="chat-header-info">
@@ -240,7 +260,10 @@ export default function Chat() {
               {messages.map((msg) => (
                 <div key={msg.id} className={`msg${msg.author.id === myId ? " mine" : ""}`}>
                   {msg.author.id !== myId && (
-                    <div className="msg-avatar" style={{ background: avatarColor(msg.author.id) }}>
+                    <div
+                      className="msg-avatar"
+                      style={{ background: avatarColor(msg.author.id) }}
+                    >
                       {msg.author.username[0].toUpperCase()}
                     </div>
                   )}

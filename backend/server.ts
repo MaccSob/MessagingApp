@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRouter from "./auth"
+import conversationsRouter from "./conversations.js";
+import { requireAuth } from "./middleware.js";
 
 const app = express();
 
@@ -12,7 +14,9 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/ping", (_req, res) => res.json({ ok: true })); // test route
+
+app.use("/conversations", requireAuth, conversationsRouter);
+app.use("/auth/me", requireAuth); // add this before app.use("/auth", authRouter)
 
 app.use("/auth", authRouter);
 
