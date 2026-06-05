@@ -1,75 +1,30 @@
-# React + TypeScript + Vite
+# 💬 Joffy - Real-Time Enterprise Messaging Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A modern, full-stack, bi-directional instant messaging application built to simulate scalable workplace communication networks like Slack or Discord.
 
-Currently, two official plugins are available:
+## 📌 About The Project
+Joffy is a feature-rich chat platform designed to handle persistent, real-time data flow with zero latency. Moving away from legacy session-based polling, this architecture focuses heavily on persistent WebSocket connections, contract-driven TypeScript development, and bulletproof security. The system utilizes real-time event loops, an analytical relational database layer, and strict server-side authentication guards.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
 
-## React Compiler
+### 🎨 Frontend (Client)
+*   **Core:** React.js (v19 with React Compiler enabled), TypeScript
+*   **Build Tool:** Vite (High-performance HMR development)
+*   **Styling:** Modern Modular CSS / SASS
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### 🖥️ Backend (Server)
+*   **Runtime & Framework:** Node.js, Express.js (Strict TypeScript configuration)
+*   **Real-Time Transport:** Socket.io (WebSockets Architecture)
+*   **Database & ORM:** PostgreSQL (Relational schema modeling via Prisma ORM v5.22.0)
+*   **Security & Auth:** Stateless JSON Web Tokens (JWT) stored via Secure, HTTP-Only Cookies
 
-Note: This will impact Vite dev & build performances.
+## 🌟 Advanced Engineering Features
+*   🔌 **Bi-Directional Event Tunneling:** Persistent, low-latency client-server state sync powered by Socket.io, bypassing traditional HTTP request overhead.
+*   🔐 **CORS & Cookie-Based JWT Auth:** Production-ready authentication architecture leveraging HTTP-Only, SameSite cookies to protect client state against XSS and CSRF token interception.
+*   🚦 **WebSocket Connection Guards:** Custom Socket.io middleware that intercepts incoming connection handshakes, dynamically decoding the HTTP-Only cookie to reject unauthenticated transport frames.
+*   🗄️ **Relational Schema Integrity:** Heavily optimized PostgreSQL architecture mapping granular, indexed relationship data between Users, Channels, and Messages using type-safe Prisma client.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📈 Engineering Challenges & Architecture Decisions
+*   **Decoupling Auth from Black-Box Frameworks:** Opted out of Passport.js in favor of custom JWT-in-Cookie middleware. This decision simplifies the integration with decoupled protocol contexts (HTTP routes vs isolated WebSockets handshakes).
+*   **Database Synchronization Locks:** Relied on PostgreSQL transaction isolation levels via Prisma to safely stream incoming concurrent message flows without structural buffer blocking.
