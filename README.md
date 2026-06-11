@@ -1,30 +1,42 @@
-# 💬 Joffy - Real-Time Enterprise Messaging Platform
+# JOFFY 💬
 
-> A modern, full-stack, bi-directional instant messaging application built to simulate scalable workplace communication networks like Slack or Discord.
+Real-time direct messaging app built with React, Express, Prisma, PostgreSQL and Socket.io.
 
-## 📌 About The Project
-Joffy is a feature-rich chat platform designed to handle persistent, real-time data flow with zero latency. Moving away from legacy session-based polling, this architecture focuses heavily on persistent WebSocket connections, contract-driven TypeScript development, and bulletproof security. The system utilizes real-time event loops, an analytical relational database layer, and strict server-side authentication guards.
+## Stack
 
-## 🛠️ Tech Stack
+| | |
+|---|---|
+| Frontend | Vite + React + TypeScript |
+| Backend | Express + TypeScript |
+| Database | PostgreSQL via Prisma |
+| Real-time | Socket.io |
+| Auth | JWT via httpOnly cookies |
 
-### 🎨 Frontend (Client)
-*   **Core:** React.js (v19 with React Compiler enabled), TypeScript
-*   **Build Tool:** Vite (High-performance HMR development)
-*   **Styling:** Modern Modular CSS / SASS
+## Getting started
 
-### 🖥️ Backend (Server)
-*   **Runtime & Framework:** Node.js, Express.js (Strict TypeScript configuration)
-*   **Real-Time Transport:** Socket.io (WebSockets Architecture)
-*   **Database & ORM:** PostgreSQL (Relational schema modeling via Prisma ORM v5.22.0)
-*   **Security & Auth:** Stateless JSON Web Tokens (JWT) stored via Secure, HTTP-Only Cookies
+**Backend**
+```bash
+cd backend
+npm install
+# create .env with DATABASE_URL, JWT_SECRET, CLIENT_URL
+npx prisma migrate dev
+npx ts-node-dev --respawn server.ts
+```
 
-## 🌟 Advanced Engineering Features
-*   🔌 **Bi-Directional Event Tunneling:** Persistent, low-latency client-server state sync powered by Socket.io, bypassing traditional HTTP request overhead.
-*   🔐 **CORS & Cookie-Based JWT Auth:** Production-ready authentication architecture leveraging HTTP-Only, SameSite cookies to protect client state against XSS and CSRF token interception.
-*   🚦 **WebSocket Connection Guards:** Custom Socket.io middleware that intercepts incoming connection handshakes, dynamically decoding the HTTP-Only cookie to reject unauthenticated transport frames.
-*   🗄️ **Relational Schema Integrity:** Heavily optimized PostgreSQL architecture mapping granular, indexed relationship data between Users, Channels, and Messages using type-safe Prisma client.
+**Frontend**
+```bash
+cd frontend
+npm install
+# create .env with VITE_API_URL=http://localhost:4000
+npm run dev
+```
 
+## Features
 
-## 📈 Engineering Challenges & Architecture Decisions
-*   **Decoupling Auth from Black-Box Frameworks:** Opted out of Passport.js in favor of custom JWT-in-Cookie middleware. This decision simplifies the integration with decoupled protocol contexts (HTTP routes vs isolated WebSockets handshakes).
-*   **Database Synchronization Locks:** Relied on PostgreSQL transaction isolation levels via Prisma to safely stream incoming concurrent message flows without structural buffer blocking.
+- Register / login with secure cookie sessions
+- Real-time DMs via Socket.io rooms
+- Start conversations by username
+- Conversation list with last message preview
+
+## License
+MIT
