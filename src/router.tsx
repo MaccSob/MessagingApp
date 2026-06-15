@@ -4,6 +4,7 @@ import Register from "./pages/register";
 import Chat from "./pages/chat";
 import Profile from "./pages/profile";
 import Home from "./pages/home";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -21,8 +22,12 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
       {
+           
         path: "chat", 
-        element: <Chat />,
+        element: 
+                 <ProtectedRoute>
+        <Chat />,
+            </ProtectedRoute>
       },
       {
        path: "profile", 
