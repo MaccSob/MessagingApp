@@ -1,15 +1,17 @@
 import pkg from "express";
 import { PrismaClient } from "@prisma/client";
-const { Router } = pkg;
+import { io } from "./sockets";
 import type { Request, Response } from "express";
+import type { AuthRequest } from "./middleware";
 
+const { Router } = pkg;
 const router = Router();
 const prisma = new PrismaClient();
 
 // GET /conversations
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).userId;
+    const userId = (req as AuthRequest).userId;
     const conversations = await prisma.conversation.findMany({
       where: { OR: [{ userAId: userId }, { userBId: userId }] },
       include: {
@@ -40,8 +42,8 @@ router.get("/", async (req: Request, res: Response) => {
 // GET /conversations/:id/messages
 router.get("/:id/messages", async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).userId;
-    const conversationId = parseInt(req.params.id);
+    const userId = (req as AuthRequest).userId;
+    const conversationId = parseInt(req.params.id as string);
     const conversation = await prisma.conversation.findFirst({
       where: { id: conversationId, OR: [{ userAId: userId }, { userBId: userId }] },
     });
@@ -58,10 +60,10 @@ router.get("/:id/messages", async (req: Request, res: Response) => {
   }
 });
 
-// POST /conversations — start a DM
+// POST /conversations
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).userId;
+    const userId = (req as AuthRequest).userId;
     const { targetUsername } = req.body;
     const targetUser = await prisma.user.findUnique({ where: { username: targetUsername } });
     if (!targetUser) return res.status(404).json({ message: "User not found" });
@@ -81,11 +83,11 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// POST /conversations/:id/messages — send a message
+// POST /conversations/:id/messages
 router.post("/:id/messages", async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).userId;
-    const conversationId = parseInt(req.params.id);
+    const userId = (req as AuthRequest).userId;
+    const conversationId = parseInt(req.params.id as string);
     const { content } = req.body;
     if (!content?.trim()) return res.status(400).json({ message: "Message cannot be empty" });
     const conversation = await prisma.conversation.findFirst({
@@ -96,6 +98,9 @@ router.post("/:id/messages", async (req: Request, res: Response) => {
       data: { content: content.trim(), authorId: userId, conversationId },
       include: { author: { select: { id: true, username: true } } },
     });
+
+    io.to(`conversation:${conversationId}`).emit("new_message", message);
+
     res.status(201).json(message);
   } catch (err) {
     console.error("POST /conversations/:id/messages:", err);

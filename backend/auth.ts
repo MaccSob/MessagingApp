@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import type { Request, Response } from "express";
-import type { AuthRequest } from "./middleware.js";
+import { requireAuth, type AuthRequest } from "./middleware";
 
 const { Router } = pkg;
 const authRouter = Router();
@@ -59,7 +59,7 @@ authRouter.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-authRouter.get("/me", async (req: Request, res: Response) => {
+authRouter.get("/me", requireAuth, async (req: Request, res: Response) => {
   try {
     const userId = (req as AuthRequest).userId;
     const user = await prisma.user.findUnique({

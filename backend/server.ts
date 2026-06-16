@@ -2,11 +2,12 @@ import pkg from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { createServer } from "http";
-import { Server, Socket } from "socket.io";
+import { Socket } from "socket.io";
+import { io } from "./sockets";
 import jwt from "jsonwebtoken";
-import authRouter from "./auth.js";
-import conversationsRouter from "./conversations.js";
-import { requireAuth } from "./middleware.js";
+import authRouter from "./auth";
+import conversationsRouter from "./conversations";
+import { requireAuth } from "./middleware";
 
 const app = pkg();
 const httpServer = createServer(app);
@@ -19,12 +20,13 @@ interface AuthSocket extends Socket {
 }
 
 // ── Socket.io ────────────────────────────────────────────────
-export const io = new Server(httpServer, {
+io.attach(httpServer, {
   cors: {
     origin: process.env.CLIENT_URL ?? "http://localhost:5173",
     credentials: true,
   },
 });
+
 
 io.use((socket, next) => {
   const authSocket = socket as AuthSocket;
@@ -66,10 +68,12 @@ app.use(cors({
 app.use(pkg.json());
 app.use(cookieParser());
 
-app.use("/auth", authRouter);
+
+app.use("/auth", authRouter); 
+
+app.get("/auth/me", requireAuth, (req, res, next) => next()); 
 app.use("/conversations", requireAuth, conversationsRouter);
 
-app.get("/ping", (_req, res) => res.json({ ok: true }));
 
 const PORT = process.env.PORT;
 httpServer.listen(PORT, () => console.log(`✅ running on http://localhost:${PORT}`));
